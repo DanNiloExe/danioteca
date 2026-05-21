@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danioteca - Meu Acervo Literário</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>📚 Danioteca</h1>
+        <p>Gerenciador de Acervo Pessoal</p>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="dash-card">
+            <span class="dash-titulo">Total no Acervo</span>
+            <span class="dash-valor">{{ total_livros }}</span>
+        </div>
+        <div class="dash-card">
+            <span class="dash-titulo">Livros Concluídos</span>
+            <span class="dash-valor prateado">{{ total_lidos }} <span class="dash-divisor">/</span> {{ total_livros }}</span>
+        </div>
+    </div>
+
+    <div class="busca-container">
+        <form action="/" method="GET" class="busca-form">
+            <label for="filtro">Buscar por:</label>
+            <select name="campo" id="filtro" class="busca-select">
+                <option value="titulo" {% if campo_atual == 'titulo' %}selected{% endif %}>Título</option>
+                <option value="autor" {% if campo_atual == 'autor' %}selected{% endif %}>Autor</option>
+                <option value="genero" {% if campo_atual == 'genero' %}selected{% endif %}>Gênero</option>
+            </select>
+            <input type="text" name="busca" value="{{ termo_atual }}" placeholder="Digite o termo de pesquisa..." class="busca-input">
+
+            <label for="filtro_status" style="margin-left: 10px;">Status:</label>
+            <select name="status" id="filtro_status" class="busca-select">
+                <option value="" {% if status_atual == '' %}selected{% endif %}>Todos os Status</option>
+                <option value="Não Lido" {% if status_atual == 'Não Lido' %}selected{% endif %}>Não Lido</option>
+                <option value="Lendo" {% if status_atual == 'Lendo' %}selected{% endif %}>Lendo</option>
+                <option value="Lido" {% if status_atual == 'Lido' %}selected{% endif %}>Lido</option>
+            </select>
+
+            <button type="submit" class="btn btn-secundario">Pesquisar</button>
+            {% if termo_atual or status_atual %}
+                <a href="/" class="btn btn-limpar">Limpar Filtros</a>
+            {% endif %}
+        </form>
+    </div>
+
+    <div class="layout-principal">
+        
+        <aside class="cadastro-card">
+            <h3>Cadastrar Novo Livro</h3>
+            <form action="/cadastrar" method="POST">
+                <div class="form-group"><label>Título</label><input type="text" name="titulo" required></div>
+                <div class="form-group"><label>Autor</label><input type="text" name="autor" required></div>
+                <div class="form-group"><label>Nacionalidade</label><input type="text" name="nacionalidade"></div>
+                <div class="form-group"><label>Editora</label><input type="text" name="editora"></div>
+                <div class="form-group"><label>Gênero</label><input type="text" name="genero" required></div>
+                <div class="form-group"><label>Ano de Publicação</label><input type="number" name="ano_publicacao" required></div>
+                <div class="form-group"><label>Número de Páginas</label><input type="number" name="num_paginas"></div>
+                <div class="form-group">
+                    <label>Status de Leitura</label>
+                    <select name="status_leitura">
+                        <option value="Não Lido">Não Lido</option>
+                        <option value="Lendo">Lendo</option>
+                        <option value="Lido">Lido</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primario">Adicionar ao Acervo</button>
+            </form>
+        </aside>
+
+        <main>
+            <h2 style="margin-top: 0; margin-bottom: 20px; font-weight: 700;">Meus Livros</h2>
+            <div class="grid-livros">
+                {% for livro in livros %}
+                
+                <div class="livro-card" id="visualizar-{{ livro.id }}">
+                    <div>
+                        <div class="livro-header">
+                            <span class="livro-id">#{{ livro.id }}</span>
+                            {% if livro.status_leitura == 'Lido' %} <span class="status-badge lido">Lido</span>
+                            {% elif livro.status_leitura == 'Lendo' %} <span class="status-badge lendo">Lendo</span>
+                            {% else %} <span class="status-badge nao-lido">Não Lido</span> {% endif %}
+                        </div>
+                        <h3 class="livro-titulo">{{ livro.titulo }}</h3>
+                        <p class="livro-autor">por {{ livro.autor }} {% if livro.nacionalidade %}({{ livro.nacionalidade }}){% endif %}</p>
+                        
+                        <div class="livro-detalhes">
+                            <div><strong>Editora:</strong> {{ livro.editora or 'Não informada' }}</div>
+                            <div><strong>Gênero:</strong> {{ livro.genero }}</div>
+                            <div><strong>Publicação:</strong> {{ livro.ano_publicacao }}</div>
+                            <div><strong>Páginas:</strong> {{ livro.num_paginas or '-' }} pág.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="livro-acoes">
+                        <button class="btn btn-link-editar" onclick="alternarEdicao('{{ livro.id }}', true)">Editar</button>
+                        <a href="/excluir/{{ livro.id }}" class="btn btn-link-excluir" onclick="return confirm('Tem certeza que deseja excluir este livro?')">Excluir</a>
+                    </div>
+                </div>
+
+                <div class="livro-card" id="editar-form-{{ livro.id }}" style="display: none; background-color: #f8fafc; border-color: var(--primaria);">
+                    <form action="/editar/{{ livro.id }}" method="POST" class="card-edicao-form">
+                        <div style="font-weight: bold; font-size: 0.85rem; color: var(--primaria);">Editando Livro #{{ livro.id }}</div>
+                        
+                        <input type="text" name="titulo" value="{{ livro.titulo }}" placeholder="Título" required>
+                        <input type="text" name="autor" value="{{ livro.autor }}" placeholder="Autor" required>
+                        <input type="text" name="nacionalidade" value="{{ livro.nacionalidade }}" placeholder="Nacionalidade">
+                        <input type="text" name="editora" value="{{ livro.editora }}" placeholder="Editora">
+                        <input type="text" name="genero" value="{{ livro.genero }}" placeholder="Gênero" required>
+                        <input type="number" name="ano_publicacao" value="{{ livro.ano_publicacao }}" placeholder="Ano" required>
+                        <input type="number" name="num_paginas" value="{{ livro.num_paginas }}" placeholder="Páginas">
+                        
+                        <select name="status_leitura">
+                            <option value="Não Lido" {% if livro.status_leitura == 'Não Lido' %}selected{% endif %}>Não Lido</option>
+                            <option value="Lendo" {% if livro.status_leitura == 'Lendo' %}selected{% endif %}>Lendo</option>
+                            <option value="Lido" {% if livro.status_leitura == 'Lido' %}selected{% endif %}>Lido</option>
+                        </select>
+                        
+                        <div class="livro-acoes" style="border: none; padding-top: 0;">
+                            <button type="submit" class="btn btn-link-editar" style="background-color: var(--primaria); color: white;">Salvar</button>
+                            <button type="button" class="btn btn-link-excluir" style="background-color: #e2e8f0; color: var(--texto-escuro);" onclick="alternarEdicao('{{ livro.id }}', false)">Voltar</button>
+                        </div>
+                    </form>
+                </div>
+
+                {% endfor %}
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+    function alternarEdicao(id, modoEdicao) {
+        const cardVisualizar = document.getElementById('visualizar-' + id);
+        const cardEditar = document.getElementById('editar-form-' + id);
+        if (modoEdicao) {
+            cardVisualizar.style.display = 'none';
+            cardEditar.style.display = 'flex';
+        } else {
+            cardVisualizar.style.display = 'flex';
+            cardEditar.style.display = 'none';
+        }
+    }
+</script>
+
+</body>
+</html>
