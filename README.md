@@ -30,6 +30,8 @@ O design adota uma estética *Cyber-Minimalista Noturna* com foco em alta fideli
 │   └── style.css       # Estilização completa (Tema FlashPoint)
 ├── templates/
 │   └── index.html      # Visão única da aplicação (Dashboard, Filtros e Grid)
+├── exportar_excel      # Migrar as informações do banco para uma planilha do excel
+├── danioteca_export    # Modelo de planilha preenchida
 ├── .gitignore          # Arquivo de proteção para não subir dados locais (.db)
 └── README.md           # Documentação do projeto
 ```
