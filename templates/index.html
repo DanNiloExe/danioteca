@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danioteca - Meu Acervo Literário</title>
+    <title>Danioteca - Meu Acervo Físico Literário</title>
+  
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
@@ -15,7 +16,7 @@
 <div class="container">
     <header>
         <h1>📚 Danioteca</h1>
-        <p>Gerenciador de Acervo Pessoal</p>
+        <p>Gerenciador de Acervo Físico Pessoal</p>
     </header>
 
     <div class="dashboard-container">
@@ -140,6 +141,8 @@
 </div>
 
 <script>
+    /* Alterna a visibilidade dos blocos do card de um livro específico
+     permitindo editar as informações no mesmo espaço sem trocar de página. */
     function alternarEdicao(id, modoEdicao) {
         const cardVisualizar = document.getElementById('visualizar-' + id);
         const cardEditar = document.getElementById('editar-form-' + id);

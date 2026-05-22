@@ -1,18 +1,25 @@
-/* --- CONFIGURAÇÕES GERAIS - TEMA FLASHPOINT (DARK, PURPLE & GREEN) --- */
+/* ==========================================================================
+   1. CONFIGURAÇÕES GERAIS E VARIÁVEIS (TEMA FLASHPOINT)
+   ========================================================================== */
 :root {
+    /* Paleta de Cores de Fundo e Superfícies */
     --bg-principal: #060814;    /* Preto profundo (Fundo do espaço/neon) */
     --card-bg: #0e1126;         /* Grafite azulado escuro (Base dos blocos) */
     --card-bg-hover: #151a36;   /* Destaque ao passar o mouse */
+    
+    /* Tipografia e Textos */
     --texto-claro: #f8fafc;     /* Branco puro texturizado */
     --texto-mutado: #64748b;    /* Cinza de suporte */
     --texto-detalhe: #a78bfa;   /* Lilás suave para subtítulos */
     
-    /* Cores de Destaque FlashPoint */
+    /* Identidade Visual e Elementos de Acento (Neon) */
     --primaria: #7c3aed;        /* Roxo Elétrico */
     --primaria-hover: #6d28d9;  /* Roxo mais escuro no hover */
     --detalhe-neon: #10b981;    /* Verde Vibrante (Acentos e Destaques) */
     --sucesso: #10b981;         /* Verde */
     --perigo: #f43f5e;          /* Coral para exclusão */
+    
+    /* Bordas e Estados de Interação */
     --borda: rgba(124, 58, 237, 0.15); /* Bordas roxas discretas */
     --borda-foco: rgba(16, 185, 129, 0.4);
 }
@@ -36,7 +43,9 @@ body {
     margin: 0 auto;
 }
 
-/* --- CABEÇALHO --- */
+/* ==========================================================================
+   2. CABEÇALHO DA PÁGINA
+   ========================================================================== */
 header {
     margin-bottom: 45px;
     text-align: left;
@@ -66,327 +75,9 @@ header p {
     font-weight: 700;
 }
 
-/* --- BARRA DE BUSCA COMPACTA --- */
-.busca-container {
-    background: var(--card-bg);
-    padding: 16px 24px;
-    border-radius: 16px;
-    margin-bottom: 35px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-    border: 1px solid var(--borda);
-}
-
-.busca-form {
-    display: flex;
-    gap: 16px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.busca-form label {
-    font-weight: 600;
-    color: var(--texto-detalhe);
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.busca-select, .busca-input {
-    padding: 12px 16px;
-    border: 1px solid var(--borda);
-    border-radius: 10px;
-    font-size: 0.95rem;
-    background-color: var(--bg-principal);
-    color: var(--texto-claro);
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.busca-select:focus, .busca-input:focus {
-    border-color: var(--detalhe-neon);
-    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
-}
-
-.busca-input {
-    flex-grow: 1;
-}
-
-/* --- LAYOUT PRINCIPAL --- */
-.layout-principal {
-    display: grid;
-    grid-template-columns: 380px 1fr;
-    gap: 40px;
-    align-items: start;
-}
-
-@media (max-width: 1000px) {
-    .layout-principal {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* --- FORMULÁRIO DE CADASTRO --- */
-.cadastro-card {
-    background: var(--card-bg);
-    padding: 30px;
-    border-radius: 20px;
-    border: 1px solid var(--borda);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-}
-
-.cadastro-card h3 {
-    margin: 0 0 25px 0;
-    font-size: 1.4rem;
-    color: var(--texto-claro);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    font-size: 0.8rem;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: var(--texto-mutado);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.form-group input, .form-group select {
-    padding: 12px;
-    border: 1px solid var(--borda);
-    border-radius: 10px;
-    font-size: 0.95rem;
-    background-color: var(--bg-principal);
-    color: var(--texto-claro);
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.form-group input:focus, .form-group select:focus {
-    border-color: var(--primaria);
-    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.2);
-}
-
-/* --- BOTÕES --- */
-.btn {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.25s ease;
-    text-decoration: none;
-}
-
-.btn-primario { 
-    background: linear-gradient(135deg, var(--primaria) 0%, #5b21b6 100%);
-    color: white; 
-    width: 100%; 
-    margin-top: 10px;
-    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
-}
-.btn-primario:hover { 
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
-}
-
-.btn-secundario { 
-    background-color: var(--primaria);
-    color: white;
-}
-.btn-secundario:hover { 
-    background-color: var(--primaria-hover);
-}
-
-.btn-limpar { 
-    background-color: rgba(255,255,255,0.05); 
-    color: var(--texto-mutado); 
-}
-.btn-limpar:hover { 
-    background-color: rgba(255,255,255,0.1); 
-    color: var(--texto-claro);
-}
-
-/* --- GRID DE LIVROS (CARDS) --- */
-.grid-livros {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 25px;
-}
-
-.livro-card {
-    background: var(--card-bg);
-    border: 1px solid var(--borda);
-    border-radius: 20px;
-    padding: 26px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.livro-card:hover {
-    transform: translateY(-6px);
-    background-color: var(--card-bg-hover);
-    border-color: var(--primaria);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 15px rgba(124, 58, 237, 0.1);
-}
-
-.livro-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-}
-
-.livro-id {
-    font-size: 0.75rem;
-    background: var(--bg-principal);
-    color: var(--texto-mutado);
-    padding: 4px 10px;
-    border-radius: 8px;
-    font-weight: 700;
-    border: 1px solid var(--borda);
-}
-
-.livro-titulo {
-    font-size: 1.35rem;
-    font-weight: 700;
-    margin: 0 0 6px 0;
-    color: var(--texto-claro);
-    font-family: 'Inter', sans-serif; /* Fonte limpa e tech, combinando com o tema anterior */
-    letter-spacing: -0.02em;
-}
-
-.livro-autor {
-    font-size: 0.95rem;
-    color: var(--texto-detalhe); /* Autor ganha destaque roxo suave */
-    margin: 0 0 18px 0;
-    font-weight: 500;
-}
-
-.livro-detalhes {
-    font-size: 0.85rem;
-    color: #94a3b8;
-    background: var(--bg-principal);
-    padding: 16px;
-    border-radius: 12px;
-    margin-bottom: 20px;
-    border: 1px solid var(--borda);
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 6px;
-}
-
-.livro-detalhes div {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px dashed rgba(124, 58, 237, 0.1);
-    padding-bottom: 4px;
-}
-.livro-detalhes div:last-child {
-    border: none;
-    padding-bottom: 0;
-}
-
-.livro-detalhes strong {
-    color: var(--texto-mutado);
-    font-weight: 500;
-}
-
-/* --- BADGES DE STATUS (FLASHPOINT STYLE) --- */
-.status-badge {
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 8px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-}
-.status-badge.lido { 
-    background-color: rgba(16, 185, 129, 0.12); 
-    color: var(--detalhe-neon); 
-    border: 1px solid rgba(16, 185, 129, 0.3);
-}
-.status-badge.lendo { 
-    background-color: rgba(124, 58, 237, 0.15); 
-    color: #c084fc; 
-    border: 1px solid rgba(124, 58, 237, 0.3);
-}
-.status-badge.nao-lido { 
-    background-color: rgba(244, 63, 94, 0.12); 
-    color: #fb7185; 
-    border: 1px solid rgba(244, 63, 94, 0.3);
-}
-
-/* --- AÇÕES DOS CARDS --- */
-.livro-acoes {
-    display: flex;
-    gap: 10px;
-    margin-top: auto;
-    border-top: 1px solid var(--borda);
-    padding-top: 18px;
-}
-
-.livro-acoes .btn {
-    flex-grow: 1;
-    padding: 8px 12px;
-    font-size: 0.85rem;
-    border-radius: 8px;
-}
-
-.btn-link-excluir { 
-    background-color: rgba(244, 63, 94, 0.05); 
-    color: var(--perigo); 
-}
-.btn-link-excluir:hover { 
-    background-color: var(--perigo); 
-    color: white; 
-}
-
-.btn-link-editar { 
-    background-color: rgba(124, 58, 237, 0.1); 
-    color: #c084fc; 
-    border: 1px solid var(--borda);
-}
-.btn-link-editar:hover { 
-    background-color: var(--primaria); 
-    color: white; 
-}
-
-/* --- FORMULÁRIO DE EDIÇÃO INLINE --- */
-.card-edicao-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    height: 100%;
-}
-.card-edicao-form input, .card-edicao-form select {
-    padding: 8px 12px;
-    border: 1px solid var(--borda);
-    border-radius: 8px;
-    font-size: 0.85rem;
-    background-color: var(--bg-principal);
-    color: white;
-    width: 100%;
-    box-sizing: border-box;
-}
-.card-edicao-form input:focus, .card-edicao-form select:focus {
-    border-color: var(--detalhe-neon);
-}
-
-/* --- PAINEL DE ESTATÍSTICAS (DASHBOARD) --- */
+/* ==========================================================================
+   3. PAINEL DE ESTATÍSTICAS (DASHBOARD)
+   ========================================================================== */
 .dashboard-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -442,4 +133,348 @@ header p {
     font-size: 1.5rem;
     font-weight: 400;
     margin: 0 4px;
+}
+
+/* ==========================================================================
+   4. BARRA DE BUSCA E FILTROS
+   ========================================================================== */
+.busca-container {
+    background: var(--card-bg);
+    padding: 16px 24px;
+    border-radius: 16px;
+    margin-bottom: 35px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--borda);
+}
+
+.busca-form {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.busca-form label {
+    font-weight: 600;
+    color: var(--texto-detalhe);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.busca-select, .busca-input {
+    padding: 12px 16px;
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    background-color: var(--bg-principal);
+    color: var(--texto-claro);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.busca-select:focus, .busca-input:focus {
+    border-color: var(--detalhe-neon);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+}
+
+.busca-input {
+    flex-grow: 1;
+}
+
+/* ==========================================================================
+   5. COMPONENTES DE BOTÕES GLOBAIS
+   ========================================================================== */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    text-decoration: none;
+}
+
+.btn-primario { 
+    background: linear-gradient(135deg, var(--primaria) 0%, #5b21b6 100%);
+    color: white; 
+    width: 100%; 
+    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+}
+
+.btn-primario:hover { 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
+}
+
+.btn-secundario { 
+    background-color: var(--primaria);
+    color: white;
+}
+
+.btn-secundario:hover { 
+    background-color: var(--primaria-hover);
+}
+
+.btn-limpar { 
+    background-color: rgba(255,255,255,0.05); 
+    color: var(--texto-mutado); 
+}
+
+.btn-limpar:hover { 
+    background-color: rgba(255,255,255,0.1); 
+    color: var(--texto-claro);
+}
+
+/* ==========================================================================
+   6. LAYOUT DA GRADE E ESTRUTURA DOS GRIDS
+   ========================================================================== */
+.layout-principal {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.grid-livros {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+@media (max-width: 1000px) {
+    .layout-principal {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   7. FORMULÁRIO DE CADASTRO (GRID ESQUERDA)
+   ========================================================================== */
+.cadastro-card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid var(--borda);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.cadastro-card h3 {
+    margin: 0 0 25px 0;
+    font-size: 1.4rem;
+    color: var(--texto-claro);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-size: 0.8rem;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--texto-mutado);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.form-group input, .form-group select {
+    padding: 12px;
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    background-color: var(--bg-principal);
+    color: var(--texto-claro);
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus, .form-group select:focus {
+    border-color: var(--primaria);
+    box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.2);
+}
+
+/* ==========================================================================
+   8. CARD DE EXIBIÇÃO DE LIVRO E CONTEÚDOS (GRID DIREITA)
+   ========================================================================== */
+.livro-card {
+    background: var(--card-bg);
+    border: 1px solid var(--borda);
+    border-radius: 20px;
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.livro-card:hover {
+    transform: translateY(-6px);
+    background-color: var(--card-bg-hover);
+    border-color: var(--primaria);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 15px rgba(124, 58, 237, 0.1);
+}
+
+.livro-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.livro-id {
+    font-size: 0.75rem;
+    background: var(--bg-principal);
+    color: var(--texto-mutado);
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-weight: 700;
+    border: 1px solid var(--borda);
+}
+
+.livro-titulo {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin: 0 0 6px 0;
+    color: var(--texto-claro);
+    font-family: 'Inter', sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.livro-autor {
+    font-size: 0.95rem;
+    color: var(--texto-detalhe);
+    margin: 0 0 18px 0;
+    font-weight: 500;
+}
+
+/* Bloco Informativo de Detalhes Internos */
+.livro-detalhes {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    background: var(--bg-principal);
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid var(--borda);
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+}
+
+.livro-detalhes div {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px dashed rgba(124, 58, 237, 0.1);
+    padding-bottom: 4px;
+}
+
+.livro-detalhes div:last-child {
+    border: none;
+    padding-bottom: 0;
+}
+
+.livro-detalhes strong {
+    color: var(--texto-mutado);
+    font-weight: 500;
+}
+
+/* Badges Semânticas de Status */
+.status-badge {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.status-badge.lido { 
+    background-color: rgba(16, 185, 129, 0.12); 
+    color: var(--detalhe-neon); 
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.status-badge.lendo { 
+    background-color: rgba(124, 58, 237, 0.15); 
+    color: #c084fc; 
+    border: 1px solid rgba(124, 58, 237, 0.3);
+}
+
+.status-badge.nao-lido { 
+    background-color: rgba(244, 63, 94, 0.12); 
+    color: #fb7185; 
+    border: 1px solid rgba(244, 63, 94, 0.3);
+}
+
+/* ==========================================================================
+   9. COMPONENTES INTERNOS DE MODIFICAÇÃO (EDIÇÃO E EXCLUSÃO)
+   ========================================================================== */
+.livro-acoes {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+    border-top: 1px solid var(--borda);
+    padding-top: 18px;
+}
+
+.livro-acoes .btn {
+    flex-grow: 1;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    border-radius: 8px;
+}
+
+.btn-link-editar { 
+    background-color: rgba(124, 58, 237, 0.1); 
+    color: #c084fc; 
+    border: 1px solid var(--borda);
+}
+
+.btn-link-editar:hover { 
+    background-color: var(--primaria); 
+    color: white; 
+}
+
+.btn-link-excluir { 
+    background-color: rgba(244, 63, 94, 0.05); 
+    color: var(--perigo); 
+}
+
+.btn-link-excluir:hover { 
+    background-color: var(--perigo); 
+    color: white; 
+}
+
+/* Formulário de Edição Inline */
+.card-edicao-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: 100%;
+}
+
+.card-edicao-form input, .card-edicao-form select {
+    padding: 8px 12px;
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    background-color: var(--bg-principal);
+    color: white;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.card-edicao-form input:focus, .card-edicao-form select:focus {
+    border-color: var(--detalhe-neon);
 }
