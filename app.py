@@ -70,5 +70,73 @@ def index():
         total_lidos=total_lidos
     )
 
+# --- ROTA DE CADASTRO: INSERIR NOVO LIVRO NO BANCO ---
+@app.route("/cadastrar", methods=["POST"])
+def cadastrar():
+    titulo = request.form.get("titulo")
+    autor = request.form.get("autor")
+    nacionalidade = request.form.get("nacionalidade")
+    editora = request.form.get("editora")
+    genero = request.form.get("genero")
+    ano_publicacao = request.form.get("ano_publicacao")
+    num_paginas = request.form.get("num_paginas")
+    status_leitura = request.form.get("status_leitura")
+    
+    # Garante compatibilidade do tipo numérico com o SQLite caso venha em branco
+    if not num_paginas:
+        num_paginas = None
+
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    cursor.execute("""
+        INSERT INTO livros (titulo, autor, nacionalidade, editora, genero, ano_publicacao, num_paginas, status_leitura)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    """, (titulo, autor, nacionalidade, editora, genero, ano_publicacao, num_paginas, status_leitura))
+    
+    conexao.commit()
+    conexao.close()
+    
+    return redirect("/")
+
+# --- ROTA DE EDIÇÃO: ATUALIZAR UM LIVRO EXISTENTE ---
+@app.route("/editar/<int:id>", methods=["POST"])
+def editar(id):
+    titulo = request.form.get("titulo")
+    autor = request.form.get("autor")
+    nacionalidade = request.form.get("nacionalidade")
+    editora = request.form.get("editora")
+    genero = request.form.get("genero")
+    ano_publicacao = request.form.get("ano_publicacao")
+    num_paginas = request.form.get("num_paginas")
+    status_leitura = request.form.get("status_leitura")
+    
+    if not num_paginas:
+        num_paginas = None
+
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    cursor.execute("""
+        UPDATE livros 
+        SET titulo = ?, autor = ?, nacionalidade = ?, editora = ?, genero = ?, ano_publicacao = ?, num_paginas = ?, status_leitura = ?
+        WHERE id = ?
+    """, (titulo, autor, nacionalidade, editora, genero, ano_publicacao, num_paginas, status_leitura, id))
+    
+    conexao.commit()
+    conexao.close()
+    
+    return redirect("/")
+
+# --- ROTA DE EXCLUSÃO: REMOVER UM LIVRO DO BANCO ---
+@app.route("/excluir/<int:id>")
+def excluir(id):
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+    cursor.execute("DELETE FROM livros WHERE id = ?", (id,))
+    
+    conexao.commit()
+    conexao.close()
+    
+    return redirect("/")
+
 if __name__ == "__main__":
     app.run(debug=True)
