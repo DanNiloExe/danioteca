@@ -18,16 +18,16 @@ def index():
     cursor = conexao.cursor()
     
     # --- NOVO: BUSCAR ESTATÍSTICAS PARA O DASHBOARD ---
-    # Conta o total geral de livros cadastrados
+
     cursor.execute("SELECT COUNT(*) FROM livros")
     total_livros = cursor.fetchone()[0]
     
-    # Conta quantos livros têm o status 'Lido'
+
     cursor.execute("SELECT COUNT(*) FROM livros WHERE status_leitura = 'Lido'")
     total_lidos = cursor.fetchone()[0]
-    # --------------------------------------------------
+
     
-    # Base da query SQL para listagem dos cards
+
     sql = "SELECT id, titulo, autor, nacionalidade, editora, genero, ano_publicacao, num_paginas, status_leitura FROM livros WHERE 1=1"
     parametros = []
     
