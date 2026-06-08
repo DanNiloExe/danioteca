@@ -585,7 +585,6 @@ box-shadow:
     transition: transform .25s ease, box-shadow .25s ease;
 }
 
-/* brilho sutil animado */
 .livro-card::after {
     content: "";
     position: absolute;
@@ -609,298 +608,914 @@ box-shadow:
     pointer-events: none;
 }
 
-/* hover mais "vivo" */
+
 .livro-card:hover {
     transform: translateY(-6px) scale(1.02);
     box-shadow: 0 12px 30px rgba(0,0,0,.5);
 }
 /*==========================================================================*/
 
-.genero-terror{
-    border-color:#ff204e60;
+.genero-horror{
+    position: relative;
+    border-color:#ff204e80;
+
     background:
-        radial-gradient(circle at 20% 30%, rgba(255,0,60,.25), transparent 60%),
-        repeating-linear-gradient(45deg, rgba(255,0,0,.03) 0 2px, transparent 2px 6px),
-        linear-gradient(180deg, rgba(80,0,20,.35), rgba(0,0,0,.98));
-    filter: contrast(1.1) saturate(1.2);
+        radial-gradient(circle at 20% 25%, rgba(255,0,60,.35), transparent 55%),
+        radial-gradient(circle at 80% 70%, rgba(120,0,20,.25), transparent 60%),
+
+        repeating-radial-gradient(
+            circle at 50% 50%,
+            rgba(255,0,0,.04) 0px,
+            rgba(0,0,0,0) 6px,
+            rgba(0,0,0,0) 10px
+        ),
+
+        repeating-linear-gradient(
+            135deg,
+            rgba(255,255,255,.02),
+            rgba(255,255,255,.02) 1px,
+            transparent 1px,
+            transparent 5px
+        ),
+
+        linear-gradient(180deg, rgba(60,0,15,.5), rgba(0,0,0,.99));
+
+    filter: contrast(1.25) saturate(1.3) brightness(.95);
+    overflow: hidden;
 }
 
-.genero-terror::before{
+.genero-horror::after{
+    content:"";
+    position:absolute;
+    inset:-20%;
+    background:
+        radial-gradient(circle at 50% 50%, rgba(255,0,60,.08), transparent 60%);
+    animation: horrorPulse 3s infinite ease-in-out;
+    opacity:.6;
+    pointer-events:none;
+}
+
+@keyframes horrorPulse{
+    0%,100%{
+        transform: scale(1);
+        opacity:.4;
+    }
+    50%{
+        transform: scale(1.15);
+        opacity:.8;
+    }
+}
+
+.genero-horror::before{
     content:"☠";
-    font-size: 110px;
-    color: #ff204e;
+    font-size: 130px;
+    color: #ff2a2a;
+    opacity: .12;
+
+    position: absolute;
+    right: -10px;
+    bottom: -20px;
+
+    text-shadow:
+        0 0 10px rgba(255,0,60,.4),
+        0 0 25px rgba(255,0,60,.2);
+}
+
+.genero-horror:hover{
+    transform: translateY(-6px) scale(1.02);
+    filter: contrast(1.4) saturate(1.5) brightness(.9);
+}
+
+
+.genero-horror:hover{
+    animation: horrorGlitch 0.4s infinite linear;
+}
+
+@keyframes horrorGlitch{
+    0%{
+        transform: translate(0,0);
+        filter: contrast(1.4) saturate(1.5) hue-rotate(0deg);
+    }
+    20%{
+        transform: translate(-2px,1px);
+    }
+    40%{
+        transform: translate(2px,-1px);
+    }
+    60%{
+        transform: translate(-1px,0px);
+        filter: hue-rotate(10deg);
+    }
+    80%{
+        transform: translate(1px,1px);
+    }
+    100%{
+        transform: translate(0,0);
+    }
+}
+
+.genero-horror::before{
+
+    z-index: 2;
+}
+
+.genero-horror::after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,.02),
+            rgba(255,255,255,.02) 1px,
+            transparent 1px,
+            transparent 3px
+        ),
+        repeating-radial-gradient(
+            circle at 50% 50%,
+            rgba(255,0,0,.03),
+            transparent 4px
+        );
+
+    opacity:.25;
+    mix-blend-mode: overlay;
+    pointer-events:none;
+    animation: noiseMove 0.3s infinite steps(2);
+}
+
+@keyframes noiseMove{
+    0%{ transform: translate(0,0); }
+    50%{ transform: translate(-1px,1px); }
+    100%{ transform: translate(1px,-1px); }
+}
+
+.genero-horror{
+    animation: horrorBreath 6s infinite ease-in-out;
+}
+
+@keyframes horrorBreath{
+    0%,100%{
+        transform: scale(1);
+        filter: contrast(1.2) saturate(1.3);
+    }
+    50%{
+        transform: scale(1.015);
+        filter: contrast(1.35) saturate(1.5) brightness(.9);
+    }
+}
+
+.genero-horror{
+    overflow:hidden;
+    position:relative;
+}
+
+.genero-horror:hover::after{
+    content:"";
+    position:absolute;
+    top:-20%;
+    left:10%;
+    width:80%;
+    height:140%;
+
+    background: linear-gradient(
+        to bottom,
+        rgba(255,0,0,.25),
+        rgba(120,0,20,.1),
+        transparent
+    );
+
+    animation: bloodDrip 1.2s ease-in forwards;
+    pointer-events:none;
+}
+
+@keyframes bloodDrip{
+    0%{
+        transform: translateY(-40%) scaleY(0.5);
+        opacity:0;
+    }
+    30%{
+        opacity:.6;
+    }
+    100%{
+        transform: translateY(40%) scaleY(1);
+        opacity:0;
+    }
 }
 
 /*==========================================================================*/
 
+
 .genero-ficcao-cientifica{
-    border-color:#00d9ff60;
+    position: relative;
+    overflow: hidden;
+
+    border-color:#00e5ff80;
+
     background:
-        radial-gradient(circle at 70% 20%, rgba(0,255,255,.25), transparent 50%),
-        linear-gradient(180deg, rgba(0,40,60,.25), rgba(5,10,20,.98));
+        radial-gradient(circle at 20% 30%, rgba(0,229,255,.25), transparent 55%),
+        radial-gradient(circle at 80% 70%, rgba(0,100,255,.15), transparent 60%),
+        linear-gradient(180deg, rgba(0,10,20,.98), rgba(0,0,0,.99));
+
+    filter: contrast(1.2) saturate(1.4);
+}
+
+.genero-ficcao-cientifica::after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(0,229,255,.05),
+            rgba(0,229,255,.05) 1px,
+            transparent 1px,
+            transparent 6px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            rgba(0,229,255,.03),
+            rgba(0,229,255,.03) 1px,
+            transparent 1px,
+            transparent 8px
+        );
+
+    opacity:.35;
+    pointer-events:none;
 }
 
 .genero-ficcao-cientifica::before{
     content:"⟡";
-    font-size: 110px;
+    font-size: 120px;
     color: #00e5ff;
-    text-shadow: 0 0 15px #00e5ff;
+
+    position: absolute;
+    right: -10px;
+    bottom: -20px;
+
+    opacity:.15;
+
+    text-shadow:
+        0 0 15px rgba(0,229,255,.5),
+        0 0 30px rgba(0,150,255,.3);
+
+    animation: scPulse 3s infinite ease-in-out;
 }
 
-/* efeito “interface digital” */
-.genero-ficcao-cientifica::after{
-    background:
-        repeating-linear-gradient(
-            0deg,
-            rgba(0,255,255,.04),
-            rgba(0,255,255,.04) 1px,
-            transparent 1px,
-            transparent 4px
-        );
-    opacity: .25;
+@keyframes scPulse{
+    0%,100%{
+        transform: scale(1) rotate(0deg);
+        opacity:.12;
+    }
+    50%{
+        transform: scale(1.15) rotate(10deg);
+        opacity:.25;
+    }
+}
+
+.genero-ficcao-cientifica{
+    animation: scanGlow 5s infinite ease-in-out;
+}
+
+@keyframes scanGlow{
+    0%,100%{
+        filter: contrast(1.2) saturate(1.4) hue-rotate(0deg);
+    }
+    50%{
+        filter: contrast(1.35) saturate(1.6) hue-rotate(10deg);
+    }
+}
+
+.genero-ficcao-cientifica:hover{
+    transform: translateY(-6px) scale(1.02);
+    animation: sciFiGlitch 0.25s infinite linear;
+}
+
+@keyframes sciFiGlitch{
+    0%{
+        transform: translate(0,0);
+        filter: hue-rotate(0deg) brightness(1);
+    }
+    25%{
+        transform: translate(1px,-1px);
+    }
+    50%{
+        transform: translate(-1px,1px);
+        filter: hue-rotate(15deg) brightness(1.1);
+    }
+    75%{
+        transform: translate(1px,1px);
+    }
+    100%{
+        transform: translate(0,0);
+    }
 }
 
 /*==========================================================================*/
-
-
 .genero-fantasia{
-    border-color:#9d4edd60;
+    position: relative;
+    overflow: hidden;
+
+    border-color:#b46cff55;
+
     background:
-        radial-gradient(circle at 50% 10%, rgba(180,100,255,.25), transparent 60%),
-        linear-gradient(180deg, rgba(40,10,60,.35), rgba(10,5,20,.98));
+        radial-gradient(circle at 25% 20%, rgba(180,108,255,.18), transparent 55%),
+        radial-gradient(circle at 75% 70%, rgba(100,255,220,.08), transparent 60%),
+        linear-gradient(180deg, rgba(20,10,35,.96), rgba(0,0,0,.99));
+
+    filter: contrast(1.15) saturate(1.15);
+
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.genero-fantasia::after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(circle at 30% 25%, rgba(199,125,255,.10), transparent 60%),
+        radial-gradient(circle at 70% 75%, rgba(100,255,220,.06), transparent 60%);
+
+    opacity:.5;
+    pointer-events:none;
 }
 
 .genero-fantasia::before{
     content:"✦";
     font-size: 110px;
-    color: #c77dff;
-    text-shadow: 0 0 20px rgba(199,125,255,.6);
-    animation: glow 3s infinite ease-in-out;
+
+    position:absolute;
+    right: -15px;
+    bottom: -25px;
+
+    color: rgba(199,125,255,.18);
+
+    text-shadow:
+        0 0 10px rgba(199,125,255,.15);
+
+    pointer-events:none;
 }
 
-@keyframes glow {
-    0%,100% { opacity: .6; transform: rotate(-10deg) scale(1); }
-    50% { opacity: 1; transform: rotate(-5deg) scale(1.1); }
+
+.genero-fantasia:hover{
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 10px 25px rgba(0,0,0,.45);
 }
 
+
+.genero-fantasia{
+    animation: fantasyBreathSoft 7s infinite ease-in-out;
+}
+
+@keyframes fantasyBreathSoft{
+    0%,100%{
+        filter: contrast(1.15) saturate(1.1) brightness(.98);
+    }
+    50%{
+        filter: contrast(1.2) saturate(1.2) brightness(1.02);
+    }
+}
+
+@keyframes fantasyBreath {
+    0%, 100% {
+        filter: brightness(.98) saturate(1.2);
+        transform: translateY(0px);
+    }
+    50% {
+        filter: brightness(1.05) saturate(1.35);
+        transform: translateY(-1px);
+    }
+}
 /*==========================================================================*/
-
 .genero-romance-policial{
-    border-color:#f7b73370;
+    position: relative;
+    overflow: hidden;
+
+    border-color:#f7b73355;
 
     background:
-        radial-gradient(circle at 20% 20%, rgba(255,215,0,.25), transparent 55%),
-        radial-gradient(circle at 80% 70%, rgba(255,0,60,.12), transparent 60%),
+        radial-gradient(circle at 20% 25%, rgba(255,200,80,.12), transparent 60%),
+        radial-gradient(circle at 80% 70%, rgba(255,50,50,.08), transparent 65%),
+        linear-gradient(180deg, rgba(15,12,10,.98), rgba(0,0,0,.99));
+
+    filter: contrast(1.2) saturate(1.05);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.genero-romance-policial .livro-capa{
+    filter: brightness(.85) contrast(1.1) saturate(.9);
+    transition: filter .3s ease, transform .3s ease;
+}
+
+
+.genero-romance-policial:hover .livro-capa{
+    filter: brightness(.9) contrast(1.2) saturate(.95);
+    transform: scale(1.02);
+}
+
+
+.genero-romance-policial::after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
         repeating-linear-gradient(
             135deg,
-            rgba(255,255,255,.03) 0 2px,
-            transparent 2px 6px
-        ),
-        linear-gradient(
-            180deg,
-            rgba(20,15,10,.95),
-            rgba(5,5,10,.98)
-        );
-
-    filter: contrast(1.15) saturate(1.1);
-}
-
-/*==========================================================================*/
-
-.genero-misterio{
-    border-color:#5f6caf70;
-
-    background:
-        radial-gradient(circle at 50% 40%, rgba(120,130,200,.25), transparent 65%),
-        radial-gradient(circle at 20% 80%, rgba(0,0,0,.6), transparent 50%),
-        repeating-radial-gradient(circle at 60% 50%,
-            rgba(167,181,255,.04),
+            rgba(255,255,255,.03),
+            rgba(255,255,255,.03) 1px,
+            transparent 1px,
             transparent 6px
         ),
-        linear-gradient(180deg, rgba(10,10,20,.5), rgba(0,0,0,.98));
+        radial-gradient(circle at 50% 40%, rgba(255,200,80,.06), transparent 70%);
 
-    filter: grayscale(.25) contrast(1.2);
+    opacity:.4;
+    pointer-events:none;
 }
 
-.genero-misterio::before{
-    content:"?";
-    font-size: 130px;
-    color: #a7b5ff;
-    opacity: .12;
-    text-shadow: 0 0 20px rgba(167,181,255,.15);
+
+.genero-romance-policial::before{
+    content:"🕵️";
+    font-size: 110px;
+
+    position:absolute;
+    right: -10px;
+    bottom: -20px;
+
+    color: rgba(255,215,120,.18);
+
+    text-shadow:
+        0 0 8px rgba(255,200,80,.12);
+
+    pointer-events:none;
 }
 
+.genero-romance-policial:hover{
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 12px 28px rgba(0,0,0,.55);
+}
+
+.genero-romance-policial{
+    animation: noirBreath 6s infinite ease-in-out;
+}
+
+@keyframes noirBreath{
+    0%,100%{
+        filter: contrast(1.15) saturate(1.05);
+    }
+    50%{
+        filter: contrast(1.25) saturate(1.1);
+    }
+}
+@keyframes detectiveTension {
+    0%, 100% {
+        filter: contrast(1.15) brightness(.95);
+        transform: translateX(0px);
+    }
+    50% {
+        filter: contrast(1.25) brightness(.98);
+        transform: translateX(0.5px);
+    }
+}
 /*==========================================================================*/
 .genero-distopia{
-    border-color:#ff7b0060;
+    position: relative;
+    overflow: hidden;
+
+    border-color:#ff3b3b55;
 
     background:
-        repeating-linear-gradient(
-            45deg,
-            rgba(255,123,0,.05),
-            rgba(255,123,0,.05) 2px,
-            transparent 2px,
-            transparent 8px
-        ),
-        radial-gradient(circle at 70% 30%, rgba(255,120,0,.25), transparent 60%),
-        linear-gradient(180deg, rgba(40,15,5,.95), rgba(10,5,5,.98));
+        radial-gradient(circle at 20% 20%, rgba(255,50,50,.18), transparent 60%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,.03), transparent 65%),
+        linear-gradient(180deg, rgba(10,10,12,.98), rgba(0,0,0,.99));
 
-    filter: contrast(1.2) saturate(1.3);
+    filter: contrast(1.25) saturate(.9);
+    transition: transform .25s ease, box-shadow .25s ease;
 }
 
-.genero-distopia::before{
-    content:"⚙";
-    font-size: 110px;
-    color: #ff9a3c;
-    opacity: .18;
-    text-shadow: 0 0 15px rgba(255,123,0,.25);
-}
-/*==========================================================================*/
-
-.genero-romance{
-    border-color:#ff69b460;
-
-    background:
-        radial-gradient(circle at 50% 20%, rgba(255,105,180,.25), transparent 60%),
-        radial-gradient(circle at 80% 70%, rgba(255,180,220,.12), transparent 60%),
-        linear-gradient(180deg, rgba(30,10,20,.9), rgba(0,0,0,.98));
-
-    filter: saturate(1.2);
-}
-.genero-romance::before{
-    content:"♥";
-    font-size: 120px;
-    color: #ff9bd0;
-    opacity: .15;
-    text-shadow: 0 0 18px rgba(255,155,208,.25);
-}
-/*==========================================================================*/
-
-.genero-aventura{
-    border-color:#22c55e60;
-
-    background:
-        radial-gradient(circle at 30% 30%, rgba(34,197,94,.25), transparent 60%),
-        radial-gradient(circle at 70% 70%, rgba(0,255,150,.10), transparent 60%),
-        linear-gradient(180deg, rgba(10,35,20,.95), rgba(0,10,5,.98));
-
-    filter: contrast(1.15) saturate(1.2);
-}
-.genero-aventura::before{
-    content:"🧭";
-    font-size: 120px;
-    color: #86efac;
-    opacity: .18;
+.genero-distopia .livro-capa{
+    filter: brightness(.8) contrast(1.15) saturate(.85);
+    transition: filter .3s ease, transform .3s ease;
 }
 
-/*==========================================================================*/
-.genero-manga{
-    border-color:#ff4d6d60;
+.genero-distopia:hover .livro-capa{
+    filter: brightness(.85) contrast(1.25) saturate(.9);
+    transform: scale(1.02);
+}
+
+.genero-distopia::after{
+    content:"";
+    position:absolute;
+    inset:0;
 
     background:
         repeating-linear-gradient(
             0deg,
+            rgba(255,0,0,.03),
+            rgba(255,0,0,.03) 1px,
+            transparent 1px,
+            transparent 5px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            rgba(255,255,255,.02),
+            rgba(255,255,255,.02) 1px,
+            transparent 1px,
+            transparent 8px
+        );
+
+    opacity:.5;
+    pointer-events:none;
+}
+
+.genero-distopia::before{
+    content:"⚠";
+    font-size: 120px;
+    position:absolute;
+    right: -10px;
+    bottom: -25px;
+    color: rgba(255,60,60,.18);
+    text-shadow:
+        0 0 10px rgba(255,60,60,.15);
+
+    pointer-events:none;
+}
+
+.genero-distopia{
+    animation: distopiaPulse 5s infinite ease-in-out;
+}
+
+@keyframes distopiaPulse{
+    0%,100%{
+        transform: translate(0,0);
+        filter: contrast(1.2) saturate(.9);
+    }
+    50%{
+        transform: translate(-0.5px,0.5px);
+        filter: contrast(1.3) saturate(.85);
+    }
+}
+
+.genero-distopia:hover{
+    box-shadow: 0 12px 30px rgba(255,0,0,.08);
+    transform: translateY(-4px) scale(1.01);
+}
+
+@keyframes dystopiaGlitch {
+    0%, 100% {
+        transform: translate(0,0);
+        filter: contrast(1.2) saturate(.9);
+    }
+    25% {
+        transform: translate(-0.5px, 0.5px);
+    }
+    50% {
+        transform: translate(0.5px, -0.5px);
+        filter: contrast(1.3) saturate(.85);
+    }
+    75% {
+        transform: translate(-0.3px, 0px);
+    }
+}
+/*==========================================================================*/
+.genero-romance{
+    position: relative;
+    overflow: hidden;
+    border-color:#ff4fa355;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255,79,163,.45), transparent 55%),
+        radial-gradient(circle at 80% 70%, rgba(255,20,147,.25), transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(255,182,193,.12), transparent 70%),
+        linear-gradient(180deg, rgba(30,5,20,.98), rgba(0,0,0,.99));
+    filter: contrast(1.2) saturate(1.35);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.genero-romance .livro-capa{
+    filter: brightness(.9) contrast(1.05) saturate(1.15);
+    transition: filter .3s ease, transform .3s ease;
+}
+
+.genero-romance:hover .livro-capa{
+    filter: brightness(.95) contrast(1.1) saturate(1.2);
+    transform: scale(1.02);
+}
+
+.genero-romance::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at 30% 30%, rgba(255,79,163,.25), transparent 55%),
+        radial-gradient(circle at 70% 60%, rgba(255,20,147,.18), transparent 60%);
+    opacity:.75;
+    pointer-events:none;
+}
+
+.genero-romance::before{
+    content:"♥";
+    font-size: 130px;
+    position:absolute;
+    right: -10px;
+    bottom: -25px;
+    color: rgba(255,79,163,.35);
+    text-shadow:
+        0 0 12px rgba(255,79,163,.35),
+        0 0 25px rgba(255,20,147,.25);
+
+    pointer-events:none;
+}
+
+.genero-romance{
+    animation: romancePulse 5s infinite ease-in-out;
+}
+
+@keyframes romancePulse{
+    0%,100%{
+        filter: contrast(1.15) saturate(1.3);
+    }
+    50%{
+        filter: contrast(1.25) saturate(1.45);
+    }
+}
+
+
+.genero-romance:hover{
+    box-shadow: 0 14px 35px rgba(255,79,163,.18);
+    transform: translateY(-5px) scale(1.02);
+}
+
+@keyframes romancePulse {
+    0%, 100% {
+        filter: saturate(1.2) brightness(.98);
+        transform: scale(1);
+    }
+    50% {
+        filter: saturate(1.35) brightness(1.05);
+        transform: scale(1.01);
+    }
+}
+/*==========================================================================*/
+.genero-classico{
+    position: relative;
+    overflow: hidden;
+    border-color: rgba(255,255,255,.20);
+    background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,.10), transparent 55%),
+        radial-gradient(circle at 70% 80%, rgba(255,255,255,.05), transparent 60%),
+        linear-gradient(180deg, #0b0b0b, #000000);
+
+    filter: contrast(1.25) brightness(.95);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.genero-classico .livro-capa{
+    filter: none !important;
+    transition: transform .3s ease;
+}
+
+.genero-classico:hover .livro-capa{
+    transform: scale(1.02);
+}
+
+.genero-classico::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            rgba(255,255,255,.04),
+            rgba(255,255,255,.04) 1px,
+            transparent 1px,
+            transparent 5px
+        ),
+        repeating-linear-gradient(
+            90deg,
             rgba(255,255,255,.03),
             rgba(255,255,255,.03) 1px,
             transparent 1px,
-            transparent 4px
-        ),
-        radial-gradient(circle at 50% 30%, rgba(255,77,109,.2), transparent 60%),
-        linear-gradient(180deg, rgba(20,10,15,.95), rgba(0,0,0,.98));
+            transparent 7px
+        );
 
-    filter: contrast(1.15);
+    opacity:.25;
+    pointer-events:none;
+    mix-blend-mode: overlay;
 }
-.genero-manga::before{
-    content:"✎";
+
+.genero-classico::before{
+    content:"❖";
     font-size: 120px;
-    color: #ff9db0;
-    opacity: .2;
+    position:absolute;
+    right: -10px;
+    bottom: -25px;
+    color: rgba(255,255,255,.12);
+    text-shadow:
+        0 0 10px rgba(255,255,255,.08);
+
+    pointer-events:none;
+}
+
+.genero-classico{
+    animation: classicSoft 8s infinite ease-in-out;
+}
+
+@keyframes classicSoft{
+    0%,100%{
+        filter: contrast(1.2) brightness(.95);
+    }
+    50%{
+        filter: contrast(1.3) brightness(1);
+    }
+}
+
+.genero-classico:hover{
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 10px 25px rgba(0,0,0,.65);
+}
+@keyframes classicBreath {
+    0%, 100% {
+        filter: contrast(1.2) brightness(.95);
+    }
+    50% {
+        filter: contrast(1.3) brightness(1);
+    }
 }
 /*==========================================================================*/
-.genero-fabula{
-    border-color:#84cc1660;
+
+.genero-aventura{
+    position: relative;
+    overflow: hidden;
+
+    border-color:#22c55e55;
 
     background:
-        radial-gradient(circle at 30% 30%, rgba(132,204,22,.25), transparent 60%),
-        radial-gradient(circle at 70% 70%, rgba(255,255,150,.08), transparent 60%),
-        linear-gradient(180deg, rgba(20,30,10,.95), rgba(5,10,5,.98));
+        radial-gradient(circle at 20% 20%, rgba(34,197,94,.25), transparent 55%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,.05), transparent 60%),
+        linear-gradient(180deg, rgba(10,25,15,.98), rgba(0,10,5,.99));
 
-    filter: saturate(1.15);
-}
-.genero-fabula::before{
-    content:"🦊";
-    font-size: 120px;
-    color: #bef264;
-    opacity: .18;
+    filter: contrast(1.15) saturate(1.2);
+    transition: transform .25s ease, box-shadow .25s ease;
 }
 
-/*==========================================================================*/
-
-.genero-autobiografia{
-    border-color:#06b6d460;
-
+.genero-aventura::after{
+    content:"";
+    position:absolute;
+    inset:0;
     background:
         repeating-linear-gradient(
             135deg,
-            rgba(255,255,255,.03),
-            rgba(255,255,255,.03) 2px,
+            rgba(34,197,94,.05),
+            rgba(34,197,94,.05) 2px,
             transparent 2px,
-            transparent 6px
+            transparent 10px
         ),
-        linear-gradient(180deg, rgba(10,20,25,.95), rgba(0,0,0,.98));
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,.04), transparent 70%);
 
-    filter: contrast(1.1);
+    opacity:.35;
+    pointer-events:none;
 }
-.genero-autobiografia::before{
-    content:"🖋";
+
+.genero-aventura::before{
+    content:"🧭";
     font-size: 120px;
-    color: #67e8f9;
-    opacity: .18;
+
+    position:absolute;
+    right: -10px;
+    bottom: -25px;
+
+    color: rgba(134,239,172,.20);
+
+    text-shadow:
+        0 0 10px rgba(34,197,94,.15);
+
+    pointer-events:none;
+}
+
+.genero-aventura .livro-capa{
+    filter: brightness(.92) contrast(1.05) saturate(1.1);
+    transition: transform .3s ease;
+}
+
+.genero-aventura:hover .livro-capa{
+    transform: scale(1.02);
+}
+
+.genero-aventura{
+    animation: adventureBreath 6s infinite ease-in-out;
+}
+
+@keyframes adventureBreath{
+    0%,100%{
+        filter: contrast(1.1) saturate(1.15);
+    }
+    50%{
+        filter: contrast(1.2) saturate(1.25);
+    }
+}
+
+.genero-aventura:hover{
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 28px rgba(34,197,94,.12);
+}
+@keyframes adventureBreath {
+    0%, 100% {
+        filter: contrast(1.1) saturate(1.15);
+        transform: translateY(0px);
+    }
+    50% {
+        filter: contrast(1.2) saturate(1.25);
+        transform: translateY(-2px);
+    }
 }
 /*==========================================================================*/
-.genero-novela{
-    border-color:#ec489960;
+.genero-super-herois{
+    position: relative;
+    overflow: hidden;
+
+    border-color:#ff2d2d55;
 
     background:
-        radial-gradient(circle at 50% 30%, rgba(236,72,153,.25), transparent 60%),
-        radial-gradient(circle at 80% 80%, rgba(255,150,200,.1), transparent 60%),
-        linear-gradient(180deg, rgba(25,10,20,.95), rgba(0,0,0,.98));
+        radial-gradient(circle at 20% 20%, rgba(255,45,45,.30), transparent 55%),
+        radial-gradient(circle at 80% 70%, rgba(0,140,255,.18), transparent 60%),
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,.06), transparent 70%),
+        linear-gradient(180deg, rgba(15,5,10,.98), rgba(0,0,0,.99));
 
-    filter: saturate(1.2);
-}
-.genero-novela::before{
-    content:"📖";
-    font-size: 120px;
-    color: #f9a8d4;
-    opacity: .18;
+    filter: contrast(1.2) saturate(1.35);
+    transition: transform .25s ease, box-shadow .25s ease;
 }
 
-/*==========================================================================*/
-.genero-satira{
-    border-color:#facc1560;
+.genero-super-herois::after{
+    content:"";
+    position:absolute;
+    inset:0;
 
     background:
-        repeating-linear-gradient(
-            45deg,
-            rgba(250,204,21,.06),
-            rgba(250,204,21,.06) 3px,
-            transparent 3px,
-            transparent 9px
-        ),
-        radial-gradient(circle at 50% 50%, rgba(250,204,21,.25), transparent 60%),
-        linear-gradient(180deg, rgba(30,25,5,.95), rgba(0,0,0,.98));
+        radial-gradient(circle, rgba(255,255,255,.05) 1px, transparent 2px),
+        radial-gradient(circle, rgba(255,45,45,.04) 1px, transparent 3px);
 
-    filter: contrast(1.2) saturate(1.3);
+    background-size: 6px 6px, 10px 10px;
+    opacity:.4;
+    pointer-events:none;
+    mix-blend-mode: overlay;
 }
-.genero-satira::before{
-    content:"🎭";
-    font-size: 120px;
-    color: #fde047;
-    opacity: .2;
-    animation: shake 2.5s infinite;
+
+.genero-super-herois::before{
+    content:"🦸";
+    font-size: 130px;
+
+    position:absolute;
+    right: -10px;
+    bottom: -25px;
+
+    color: rgba(255,45,45,.22);
+
+    text-shadow:
+        0 0 12px rgba(255,45,45,.18),
+        0 0 25px rgba(0,140,255,.12);
+
+    pointer-events:none;
 }
+
+.genero-super-herois .livro-capa{
+    filter: brightness(.92) contrast(1.1) saturate(1.15);
+    transition: transform .3s ease;
+}
+
+.genero-super-herois:hover .livro-capa{
+    transform: scale(1.02);
+}
+
+.genero-super-herois{
+    animation: heroPulse 5s infinite ease-in-out;
+}
+@keyframes heroPulse {
+    0%, 100% {
+        filter: contrast(1.15) saturate(1.3);
+        transform: scale(1);
+    }
+    50% {
+        filter: contrast(1.25) saturate(1.5);
+        transform: scale(1.02);
+    }
+}
+@keyframes heroPulse{
+    0%,100%{
+        filter: contrast(1.15) saturate(1.3);
+    }
+    50%{
+        filter: contrast(1.25) saturate(1.45);
+    }
+}
+
+.genero-super-herois:hover{
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 15px 35px rgba(255,45,45,.15);
+}
+
 /*==========================================================================*/
-
 .livro-capa {
     width: 180px;
     height: 260px;
@@ -916,3 +1531,4 @@ box-shadow:
      transform: scale(1.08) rotate(-1deg);
     filter: brightness(1.1) contrast(1.1);
 }
+/*==========================================================================*/
