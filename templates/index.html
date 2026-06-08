@@ -9,6 +9,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
     
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -33,11 +38,29 @@
     <div class="busca-container">
         <form action="/" method="GET" class="busca-form">
             <label for="filtro">Buscar por:</label>
-            <select name="campo" id="filtro" class="busca-select">
-                <option value="titulo" {% if campo_atual == 'titulo' %}selected{% endif %}>Título</option>
-                <option value="autor" {% if campo_atual == 'autor' %}selected{% endif %}>Autor</option>
-                <option value="genero" {% if campo_atual == 'genero' %}selected{% endif %}>Gênero</option>
-            </select>
+
+<select name="campo" id="filtro" class="busca-select">
+    <option value="todos" {% if campo_atual == 'todos' %}selected{% endif %}>
+        Todos os Campos
+    </option>
+
+    <option value="titulo" {% if campo_atual == 'titulo' %}selected{% endif %}>
+        Título
+    </option>
+
+    <option value="autor" {% if campo_atual == 'autor' %}selected{% endif %}>
+        Autor
+    </option>
+
+    <option value="genero" {% if campo_atual == 'genero' %}selected{% endif %}>
+        Gênero
+    </option>
+
+    <option value="editora" {% if campo_atual == 'editora' %}selected{% endif %}>
+        Editora
+    </option>
+</select>
+
             <input type="text" name="busca" value="{{ termo_atual }}" placeholder="Digite o termo de pesquisa..." class="busca-input">
 
             <label for="filtro_status" style="margin-left: 10px;">Status:</label>
@@ -57,9 +80,9 @@
 
     <div class="layout-principal">
         
-        <aside class="cadastro-card">
+        <aside class="cadastro-card sidebar">
             <h3>Cadastrar Novo Livro</h3>
-            <form action="/cadastrar" method="POST">
+            <form action="/cadastrar" method="POST" enctype="multipart/form-data">
                 <div class="form-group"><label>Título</label><input type="text" name="titulo" required></div>
                 <div class="form-group"><label>Autor</label><input type="text" name="autor" required></div>
                 <div class="form-group"><label>Nacionalidade</label><input type="text" name="nacionalidade"></div>
@@ -75,6 +98,10 @@
                         <option value="Lido">Lido</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label>Capa do Livro</label>
+                    <input type="file" name="capa" accept="image/*">
+                </div>
                 <button type="submit" class="btn btn-primario">Adicionar ao Acervo</button>
             </form>
         </aside>
@@ -84,7 +111,16 @@
             <div class="grid-livros">
                 {% for livro in livros %}
                 
-                <div class="livro-card" id="visualizar-{{ livro.id }}">
+                <div class="livro-card genero-{{ livro.genero.lower()
+                    .replace('ç','c')
+                    .replace('ã','a')
+                    .replace('á','a')
+                    .replace('é','e')
+                    .replace('í','i')
+                    .replace('ó','o')
+                    .replace('ú','u')
+                    .replace(' ','-') }}"
+                    id="visualizar-{{ livro.id }}">
                     <div>
                         <div class="livro-header">
                             <span class="livro-id">#{{ livro.id }}</span>
@@ -92,8 +128,23 @@
                             {% elif livro.status_leitura == 'Lendo' %} <span class="status-badge lendo">Lendo</span>
                             {% else %} <span class="status-badge nao-lido">Não Lido</span> {% endif %}
                         </div>
+                       
+                        {% if livro.capa %}
+                        <img
+                            src="{{ url_for('static', filename='capas/' + livro.capa) }}"
+                            class="livro-capa"
+                            alt="{{ livro.titulo }}">
+                        {% endif %}
                         <h3 class="livro-titulo">{{ livro.titulo }}</h3>
-                        <p class="livro-autor">por {{ livro.autor }} {% if livro.nacionalidade %}({{ livro.nacionalidade }}){% endif %}</p>
+
+                        <p class="livro-autor">
+                            por {{ livro.autor }}
+                            {% if livro.nacionalidade %}
+                                ({{ livro.nacionalidade }})
+                            {% endif %}
+                        </p>
+
+<p class="livro-genero-badge">{{ livro.genero }}</p>
                         
                         <div class="livro-detalhes">
                             <div><strong>Editora:</strong> {{ livro.editora or 'Não informada' }}</div>
@@ -110,7 +161,7 @@
                 </div>
 
                 <div class="livro-card" id="editar-form-{{ livro.id }}" style="display: none; background-color: #f8fafc; border-color: var(--primaria);">
-                    <form action="/editar/{{ livro.id }}" method="POST" class="card-edicao-form">
+                    <form action="/editar/{{ livro.id }}" method="POST" enctype="multipart/form-data" class="card-edicao-form">
                         <div style="font-weight: bold; font-size: 0.85rem; color: var(--primaria);">Editando Livro #{{ livro.id }}</div>
                         
                         <input type="text" name="titulo" value="{{ livro.titulo }}" placeholder="Título" required>
@@ -121,6 +172,11 @@
                         <input type="number" name="ano_publicacao" value="{{ livro.ano_publicacao }}" placeholder="Ano" required>
                         <input type="number" name="num_paginas" value="{{ livro.num_paginas }}" placeholder="Páginas">
                         
+                        <div class="form-group">
+                            <label>Nova Capa</label>
+                            <input type="file" name="capa" accept="image/*">
+                        </div>
+
                         <select name="status_leitura">
                             <option value="Não Lido" {% if livro.status_leitura == 'Não Lido' %}selected{% endif %}>Não Lido</option>
                             <option value="Lendo" {% if livro.status_leitura == 'Lendo' %}selected{% endif %}>Lendo</option>
@@ -140,6 +196,11 @@
     </div>
 </div>
 
+
+    <button id="btnTopo" title="Voltar ao topo">
+        Ω
+    </button>
+
 <script>
     /* Alterna a visibilidade dos blocos do card de um livro específico
      permitindo editar as informações no mesmo espaço sem trocar de página. */
@@ -154,6 +215,40 @@
             cardEditar.style.display = 'none';
         }
     }
+</script>
+
+<script>
+const btnTopo = document.getElementById("btnTopo");
+
+window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+        btnTopo.classList.add("mostrar");
+    } else {
+        btnTopo.classList.remove("mostrar");
+    }
+});
+
+btnTopo.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});
+</script>
+
+<script>
+window.addEventListener("load", () => {
+    if (window.location.hash) {
+        const elemento = document.querySelector(window.location.hash);
+
+        if (elemento) {
+            elemento.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
+    }
+});
 </script>
 
 </body>
