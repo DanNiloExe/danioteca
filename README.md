@@ -27,7 +27,7 @@ O design adota uma estética *Cyber-Minimalista Noturna* com foco em alta fideli
 ```text
 ├── app.py              # Lógica do servidor Flask, rotas e consultas SQL
 ├── static/
-│   └── style.css       # Estilização completa (Tema FlashPoint)
+│   └── style.css       # Estilização completa
 ├── templates/
 │   └── index.html      # Visão única da aplicação (Dashboard, Filtros e Grid)
 ├── exportar_excel      # Migrar as informações do banco para uma planilha do excel
